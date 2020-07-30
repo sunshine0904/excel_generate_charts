@@ -1,7 +1,9 @@
+#-*- coding:utf-8 -*-
 import xlrd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 from pylab import *
+import os
 
 #这里是要生成图片的excel的文件名
 file_name="K:2020年7月份男士内裤.xlsx"
@@ -9,7 +11,17 @@ file_name="K:2020年7月份男士内裤.xlsx"
 #这里是生成的柱状图图片的名字
 save_fig_name="K:test.jpg"
 
-f = xlrd.open_workbook(file_name)
+
+#f = xlrd.open_workbook(file_name)
+
+def get_all_excel_file(path):
+	excel_files=[]
+	for files in os.walk(path):
+		print(type(files))
+		print(files[len(files) - 4 : len(files)])
+		if files[len(files) - 4 : len(files)] == "xlsx":
+			excel_files.append(files)
+	return excel_files
 
 def fig_setting():
 	mpl.rcParams['font.sans-serif'] = ['SimHei']
@@ -84,4 +96,5 @@ def gen_figure():
 	#出图
 	#plt.show()
 
-gen_figure()
+#gen_figure()
+print(get_all_excel_file(os.getcwd()+"\excel"))
